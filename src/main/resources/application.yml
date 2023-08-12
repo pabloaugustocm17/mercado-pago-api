@@ -1,2 +1,9 @@
+api-keys:
+  access_token = ${ACCESS_TOKEN}
+  public_key = ${PUBLIC_KEY}
 server:
   port: 8081
+
+spring:
+  application:
+    name: api-mercado-pago
