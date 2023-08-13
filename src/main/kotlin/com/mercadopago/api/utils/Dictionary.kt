@@ -8,6 +8,8 @@ class Dictionary {
         const val ERROR_PAYMENT = "A bandeira 'VISA' está bloquada para transações"
         const val ERROR_VALUE_PAYMENT = "Somente é permitido compras com inferior a 6 parcelas"
         const val PARSE_EXCEPTION_DIVIDEBY = "Erro ao converter quantidade de pagamento"
+
+        const val USER_EXIST = "Usuário já existe no sistema"
     }
 
 }
