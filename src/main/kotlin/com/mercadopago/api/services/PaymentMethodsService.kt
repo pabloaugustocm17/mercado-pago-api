@@ -65,7 +65,7 @@ class PaymentMethodsService {
                                 .build())
                 .description("Payment for product")
                 .externalReference("MP0001")
-                .installments(parseStringToInteger(dto.paymentMethod.dividBy))
+                .installments(parseStringToInteger(dto.paymentMethod.divideBy))
                 .order(PaymentOrderRequest.builder().type("mercadolibre").build())
                 .payer(PaymentPayerRequest.builder().entityType("individual").type("customer").build())
                 .paymentMethodId(dto.paymentMethod.flag)
@@ -101,7 +101,7 @@ class PaymentMethodsService {
         if(dto.flag.uppercase(Locale.getDefault()) == Dictionary.PAYMENT_BLOCKED)
             throw RuntimeException(Dictionary.ERROR_PAYMENT)
 
-        val valueCompare : Int = parseStringToInteger(dto.dividBy)
+        val valueCompare : Int = parseStringToInteger(dto.divideBy)
 
         if(valueCompare > 6)
             throw RuntimeException(Dictionary.ERROR_VALUE_PAYMENT)
