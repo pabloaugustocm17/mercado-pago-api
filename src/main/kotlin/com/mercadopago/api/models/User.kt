@@ -12,19 +12,32 @@ class User() {
     lateinit var id : UUID
         private set
 
-    private lateinit var firstName : String
+    @Column
+    lateinit var firstName : String
+        private set
 
-    private lateinit var lastName : String
+    @Column
+    lateinit var lastName : String
+        private set
 
-    private lateinit var ddd : String
+    @Column
+    lateinit var ddd : String
+        private set
 
-    private lateinit var phone : String
+    @Column
+    lateinit var phone : String
+        private set
 
-    constructor(firstName : String, lastName : String, ddd : String, phone : String) : this() {
+    @OneToOne
+    @JoinColumn
+    lateinit var address: Address
+        private set
+
+    constructor(firstName : String, lastName : String, ddd : String, phone : String, add: Address) : this() {
         this.firstName = firstName
         this.lastName = lastName
         this.ddd = ddd
         this.phone = phone
+        this.address = add
     }
-
 }
