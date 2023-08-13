@@ -1,6 +1,6 @@
 package com.mercadopago.api.controllers
 
-import com.mercadopago.api.dtos.PaymentMethodDTO
+import com.mercadopago.api.dtos.PaymentDTO
 import com.mercadopago.api.services.PaymentMethodsService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -16,11 +16,12 @@ class PaymentMethodsController {
 
     @PostMapping
     fun realizePayment(
-            @RequestBody dto : PaymentMethodDTO
+            @RequestBody dto : PaymentDTO
     ) : ResponseEntity<Any> {
 
+        val payment = service.realizePayment(dto)
 
-        return ResponseEntity.ok("")
+        return ResponseEntity.ok(payment)
     }
 
 }
