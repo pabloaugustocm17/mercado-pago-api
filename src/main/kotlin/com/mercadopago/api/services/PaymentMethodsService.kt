@@ -69,7 +69,8 @@ class PaymentMethodsService {
                 .order(PaymentOrderRequest.builder().type("mercadolibre").build())
                 .payer(PaymentPayerRequest.builder().entityType("individual").type("customer").build())
                 .paymentMethodId(dto.paymentMethod.flag)
-                .transactionAmount(BigDecimal(dto.products.stream().mapToDouble { product -> product.unitPrice }.sum()))
+                .transactionAmount(BigDecimal(dto.products.stream().mapToDouble { product ->
+                    product.unitPrice.toDouble() }.sum()))
                 .build()
     }
 
@@ -86,7 +87,7 @@ class PaymentMethodsService {
                             .pictureUrl(product.pictureURL)
                             .categoryId(product.categoryId)
                             .quantity(product.quantity)
-                            .unitPrice(BigDecimal(product.unitPrice))
+                            .unitPrice(BigDecimal(product.unitPrice.toDouble()))
                             .build()
 
             items.add(item)
