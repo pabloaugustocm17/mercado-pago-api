@@ -44,28 +44,33 @@ api-keys:
   public_key = ${PUBLIC_KEY}
 ...
 ```
-
-Além disso também será necessário configurar o banco de dados para realização dos testes, onde suas variáveis também serão colocadas no `.env`, as referenciando nas propriedades do seu sistema (*TODO*):
+Além disso também será necessário configurar o banco de dados para realização dos testes, onde suas variáveis também serão colocadas no `.env`, as referenciando nas propriedades do seu sistema :
 
 ```yml
 spring:
-  application:
-    datasource:
-      username: ${USERNAME}
-      password: ${PASSWORD}
-      url: ${URL}
-...
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+      #em produção usar 'validate'
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 ```
 
 OBS: *public_key* no código é equivalente ao *integrator_id*
 
 ## Enpoints
 
-Para toda a comunicação com a API será mantido o padrão da V1 sendo: `dominio/api/v1` e para cada função sistemica e controllers diferentes sua nomenclatura mudará, portanto será divididos em submódulos os endpoint a fim de diferenciar os controllers
+Para toda a comunicação com a API será mantido o padrão da V1 sendo: `dominio/api/v1/` e para cada função sistemica e controllers diferentes sua nomenclatura mudará, portanto será divididos em submódulos os endpoint a fim de diferenciar os controllers
 
 ### Módulos
 
 * [PaymentMethodsController](#paymentmethodscontroller)
+* [UserController](#usercontroller)
+* [ProductController](#productcontroller)
 
 #### PaymentMethodsController
 
@@ -107,4 +112,89 @@ Retornado:
 
 ```json
 (TODO)
+```
+
+----
+
+#### UserController
+
+A sua rota é: `dominio/api/v1/product/`, possuindo as funções de inserção, alteração, leitura pelo *ID* e leitura de todos, a partir dos enpoints:
+
+----
+
+Inserir usuário (POST) - `dominio/api/v1/product/`
+
+```json 
+{
+  "user" : {
+    "firstName" : "Pablo",
+    "lastName" : "Teste",
+    "ddd" : "89",
+    "phone" : "112345678"
+  },
+  "address" : {
+    "zipCode" : "000045689",
+    "stateName" : "PE",
+    "cityName" : "Cidade Y",
+    "streetName" : "Rua X",
+    "streetNumber" : "120"
+  }
+}
+```
+[Retorno Sucesso](#output-inserido-genérico)
+
+[Falha (Usuário existente)](#output-objeto-existente-genérico):
+
+Falha (Body vazio) (*TODO*):
+
+```json
+{
+  "mensagem": "Campos obrigatórios não preenchidos"
+}
+```
+----
+
+Retorna Todos Usuários (GET) - `dominio/api/v1/product/`
+
+```json
+[
+  {
+    "id": "dde192b8-c2f7-457f-abff-e314185e8eea",
+    "firstName": "Pablo",
+    "lastName": "Teste",
+    "ddd": "89",
+    "phone": "112345678",
+    "address": {
+      "id": "42d72dcb-9330-4676-9b24-0682196b0013",
+      "zipCode": "0000",
+      "stateName": "PE",
+      "cityName": "Cidade Y",
+      "streetName": "Rua X",
+      "streetNumber": "120"
+    }
+  }
+]
+```
+
+#### ProductController
+
+### Outputs
+
+#### Output Inserido Genérico
+
+```json
+{
+  "mensagem": "Objeto inserido com sucesso",
+  "id": "1f84b9e8-bbef-49d6-9ddd-3f883b84cc0c"
+}
+```
+
+#### Output objeto existente genérico
+
+{objeto} = Qualquer objeto prensente na pasta de models, por exemplo Usuário, Produto...
+
+```json
+{
+  "mensagem": "{objeto} já existe no sistema"
+}
 ```
