@@ -1,6 +1,8 @@
 package com.mercadopago.api.controllers
 
 import com.mercadopago.api.dtos.CreateUserDTO
+import com.mercadopago.api.outputs.ErrorOutput
+import com.mercadopago.api.outputs.SuccessOutput
 import com.mercadopago.api.services.UserService
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -22,7 +24,7 @@ class UserController (private val userService: UserService){
 
         val user = userService.insertUser(dto)
 
-        return ResponseEntity.ok(user)
+        return SuccessOutput.successOutputId(user)
 
     }
 
@@ -38,7 +40,7 @@ class UserController (private val userService: UserService){
     @ExceptionHandler(Exception::class)
     fun exceptionHandler(e : Exception) : ResponseEntity<Any>{
 
-        return ResponseEntity.badRequest().body(e.message)
+        return ErrorOutput.errorOutput(e.message!!)
     }
 
 }

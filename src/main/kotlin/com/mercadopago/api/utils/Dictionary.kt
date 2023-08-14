@@ -11,6 +11,12 @@ class Dictionary {
 
         const val USER_EXIST = "Usuário já existe no sistema"
         const val PRODUCT_EXIST = "Produto já inserido no sistema"
+
+        const val GENERIC_SUCCESS_INSERT = "Objeto inserido com sucesso"
+
+        const val SUCCESS_201 = 201
+        const val SUCCESS_202 = 202
+
     }
 
 }

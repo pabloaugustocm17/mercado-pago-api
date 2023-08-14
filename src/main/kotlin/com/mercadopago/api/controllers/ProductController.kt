@@ -1,14 +1,12 @@
 package com.mercadopago.api.controllers
 
 import com.mercadopago.api.dtos.ProductDTO
+import com.mercadopago.api.outputs.ErrorOutput
+import com.mercadopago.api.outputs.SuccessOutput
 import com.mercadopago.api.services.ProductService
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1/product/")
@@ -21,7 +19,7 @@ class ProductController(private var productService: ProductService){
 
         val id = productService.inserProduct(dto)
 
-        return ResponseEntity.ok(id)
+        return SuccessOutput.successOutputId(id)
 
     }
 
@@ -30,6 +28,12 @@ class ProductController(private var productService: ProductService){
     fun getAllProducts() : ResponseEntity<Any>{
 
         return ResponseEntity.ok(productService.getAllProducts())
+    }
+
+    @ExceptionHandler(Exception::class)
+    fun exceptionHandler(e : Exception) : ResponseEntity<Any>{
+
+        return ErrorOutput.errorOutput(e.message!!)
     }
 
 }
