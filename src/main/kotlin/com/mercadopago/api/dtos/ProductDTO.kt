@@ -6,5 +6,5 @@ data class ProductDTO(
         val pictureURL : String,
         val categoryId : String,
         val quantity : Int,
-        val unitPrice : Double,
+        val unitPrice : Float
 )
