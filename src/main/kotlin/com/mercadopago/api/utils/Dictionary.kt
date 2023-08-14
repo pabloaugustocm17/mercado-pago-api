@@ -10,6 +10,7 @@ class Dictionary {
         const val PARSE_EXCEPTION_DIVIDEBY = "Erro ao converter quantidade de pagamento"
 
         const val USER_EXIST = "Usuário já existe no sistema"
+        const val PRODUCT_EXIST = "Produto já inserido no sistema"
     }
 
 }
