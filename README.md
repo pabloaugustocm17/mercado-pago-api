@@ -79,32 +79,11 @@ Esta requisição faz com que o pagamento seja realizado, possuindo como paramê
 ```json
 {
   "paymentMethod" : {
-    "flag" : "pix",
-    "divideBy" : "1"
+    "flag" : "visa",
+    "installments" : "1"
   },
-  "products" : [
-    {
-      "title" : "Computador",
-      "description" : "Computador para teste",
-      "pictureURL" : "https://example.com",
-      "categoryId" : "Informática",
-      "quantity" : 1,
-      "unitPrice" : 3599.99
-    }
-  ],
-  "user" : {
-    "firstName" : "Pablo",
-    "lastName" : "Silva",
-    "ddd" : "89",
-    "phone" : "112345678"
-  },
-  "address": {
-    "zipCode" : "1234685",
-    "stateName" : "Estado",
-    "cityName" : "Cidade",
-    "streetName" : "Rua X",
-    "streetNumber" : "123" 
-  }
+  "products" : ["id1", "id2"],
+  "user" : "idUser"
 }
 ```
 
@@ -118,11 +97,11 @@ Retornado:
 
 #### UserController
 
-A sua rota é: `dominio/api/v1/product/`, possuindo as funções de inserção, alteração, leitura pelo *ID* e leitura de todos, a partir dos enpoints:
+A sua rota é: `dominio/api/v1/user/`, possuindo as funções de inserção, alteração, leitura pelo *ID* e leitura de todos, a partir dos enpoints:
 
 ----
 
-Inserir usuário (POST) - `dominio/api/v1/product/`
+Inserir usuário (POST) - `dominio/api/v1/user/`
 
 ```json 
 {
@@ -141,42 +120,52 @@ Inserir usuário (POST) - `dominio/api/v1/product/`
   }
 }
 ```
-[Retorno Sucesso](#output-inserido-genérico)
 
-[Falha (Usuário existente)](#output-objeto-existente-genérico):
+Erros possíveis: [Retorno Sucesso](#output-inserido-genérico), [Falha (Usuário existente)](#output-erro-genérico)
 
-Falha (Body vazio) (*TODO*):
+----
+
+Retorna todos usuários (GET) - `dominio/api/v1/user/`
+
+
+----
+
+Retorna usuário pelo *ID* (GET) - `dominio/api/v1/user/{id}`
+
+Erro possível: [Falha (Usuário não existe)](#output-erro-genérico)
+
+----
+
+#### ProductController
+
+A sua rota é: `dominio/api/v1/products/`, possuindo as funções de inserção, alteração, leitura pelo *ID* e leitura de todos, a partir dos enpoints:
+
+----
+
+Inserir produto (POST) - `dominio/api/v1/products/`
 
 ```json
 {
-  "mensagem": "Campos obrigatórios não preenchidos"
+  "title" : "TV",
+  "description" : "50 polegadas",
+  "pictureURL" : "https://example.com",
+  "categoryId" : "Eletrônicos",
+  "quantity" : 10,
+  "unitPrice" : 1999.99
 }
 ```
 ----
 
-Retorna Todos Usuários (GET) - `dominio/api/v1/product/`
+Retorna todos produtos (GET) - `dominio/api/v1/products/`
 
-```json
-[
-  {
-    "id": "dde192b8-c2f7-457f-abff-e314185e8eea",
-    "firstName": "Pablo",
-    "lastName": "Teste",
-    "ddd": "89",
-    "phone": "112345678",
-    "address": {
-      "id": "42d72dcb-9330-4676-9b24-0682196b0013",
-      "zipCode": "0000",
-      "stateName": "PE",
-      "cityName": "Cidade Y",
-      "streetName": "Rua X",
-      "streetNumber": "120"
-    }
-  }
-]
-```
+----
 
-#### ProductController
+Retorna produto pelo *ID* (GET) - `dominio/api/v1/products/{id}`
+
+Erro possível: [Falha (Usuário não existe)](#output-erro-genérico)
+
+----
+
 
 ### Outputs
 
@@ -189,12 +178,12 @@ Retorna Todos Usuários (GET) - `dominio/api/v1/product/`
 }
 ```
 
-#### Output objeto existente genérico
+#### Output erro genérico
 
 {objeto} = Qualquer objeto prensente na pasta de models, por exemplo Usuário, Produto...
 
 ```json
 {
-  "mensagem": "{objeto} já existe no sistema"
+  "mensagem": "..."
 }
 ```
