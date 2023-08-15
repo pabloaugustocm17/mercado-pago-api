@@ -36,6 +36,26 @@ class ProductService(private var productRepository: ProductRepository) {
 
     }
 
+    fun getProductsByIds(ids : ArrayList<UUID>) : ArrayList<Product>{
+
+        val products = productRepository.returnProductsByIds(ids)
+
+        if(products.isEmpty)
+            throw RuntimeException(Dictionary.PRODUCT_NO_EXIST)
+
+        return products.get()
+    }
+
+    fun getProducById(id : UUID) : Product{
+
+        val product = productRepository.findById(id)
+
+        if(product.isEmpty)
+            throw RuntimeException(Dictionary.PRODUCT_NO_EXIST)
+
+        return product.get()
+    }
+
     /* Utils */
 
     fun verifyProduct(dto : ProductDTO) : Boolean{
