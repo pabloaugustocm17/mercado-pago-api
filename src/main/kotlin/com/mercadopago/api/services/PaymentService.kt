@@ -17,40 +17,20 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @Service
-class PaymentService(
-        var proudctRepository: ProductRepository,
-        var userRepository: UserRepository
-) {
+class PaymentService {
 
-    /* Comunicação BD */
-
-    fun returnProducts(ids : ArrayList<UUID>) : ArrayList<Product>{
-
-        val products = proudctRepository.returnProductsByIds(ids)
-
-        if(products.isEmpty)
-            throw RuntimeException(Dictionary.PRODUCT_NO_EXIST)
-
-        return products.get()
-    }
-
-    fun returnUser(id : UUID) : User {
-
-        val user = userRepository.findById(id)
-
-        if(user.isEmpty)
-            throw RuntimeException(Dictionary.USER_NO_EXIST)
-
-        return user.get()
-    }
 
     /* Public */
 
-    fun realizePayment(dto : PaymentDTO) : Payment{
+    fun realizePayment(
+            paymentMethod : PaymentMethodDTO,
+            user : User,
+            products : ArrayList<Product>
+    ) : Payment{
 
-        verifyPaymentMethod(dto.paymentMethod)
+        verifyPaymentMethod(paymentMethod)
 
-        val request = createRequest(dto)
+        val request = createRequest(paymentMethod, user, products)
 
         val client = PaymentClient()
 
@@ -60,11 +40,13 @@ class PaymentService(
 
     /* Utils */
 
-    private fun createRequest(dto: PaymentDTO): PaymentCreateRequest {
+    private fun createRequest(paymentMethod : PaymentMethodDTO,
+                              user : User,
+                              productsModel : ArrayList<Product>
+    ): PaymentCreateRequest {
 
-        val products = createItemRequest(returnProducts(dto.products))
+        val products = createItemRequest(productsModel)
 
-        val user = returnUser(dto.user)
         val address = user.address
 
         return PaymentCreateRequest.builder()
@@ -94,10 +76,10 @@ class PaymentService(
                                 .build())
                 .description("Payment for product")
                 .externalReference("MP0001")
-                .installments(parseStringToInteger(dto.paymentMethod.installments))
+                .installments(parseStringToInteger(paymentMethod.installments))
                 .order(PaymentOrderRequest.builder().type("mercadolibre").build())
                 .payer(PaymentPayerRequest.builder().entityType("individual").type("customer").build())
-                .paymentMethodId(dto.paymentMethod.flag)
+                .paymentMethodId(paymentMethod.flag)
                 .transactionAmount(BigDecimal(products.stream().mapToDouble { product ->
                     product.unitPrice.toDouble() }.sum()))
                 .build()
