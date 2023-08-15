@@ -1,6 +1,5 @@
 package com.mercadopago.api.mappers
 
-import com.mercadopago.api.dtos.CreateUserDTO
 import com.mercadopago.api.dtos.UserDTO
 import com.mercadopago.api.models.Address
 import com.mercadopago.api.models.User

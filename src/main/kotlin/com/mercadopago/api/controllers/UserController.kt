@@ -31,7 +31,7 @@ class UserController (private val userService: UserService){
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllUsers() : ResponseEntity<Any>{
 
-        val users = userService.getAllUsers();
+        val users = userService.getAllUsers()
 
         return ResponseEntity.ok(users)
 
