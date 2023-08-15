@@ -46,6 +46,17 @@ class UserService(
         return userRepository.findAll()
     }
 
+    fun getUserById(id : UUID) : User{
+
+        val user = userRepository.findById(id)
+
+        if(user.isEmpty)
+            throw RuntimeException(Dictionary.USER_NO_EXIST)
+
+        return user.get()
+
+    }
+
     /* Utils */
 
     private fun verifyUserExist(dto : UserDTO) : Boolean{
