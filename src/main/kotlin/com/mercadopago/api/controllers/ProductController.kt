@@ -7,6 +7,7 @@ import com.mercadopago.api.services.ProductService
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.UUID
 
 @RestController
 @RequestMapping("/api/v1/product/")
@@ -23,6 +24,16 @@ class ProductController(private var productService: ProductService){
 
     }
 
+    @GetMapping("/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun getProductById(
+            @PathVariable id : UUID
+    ) : ResponseEntity<Any>{
+
+        val product = productService.getProducById(id)
+
+        return ResponseEntity.ok(product)
+
+    }
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllProducts() : ResponseEntity<Any>{
