@@ -1,9 +1,11 @@
 package com.mercadopago.api.dtos
 
+import org.springframework.lang.NonNull
+
 data class AddressDTO(
-        val zipCode : String,
-        val stateName : String,
-        val cityName : String,
-        val streetName : String,
-        val streetNumber : String
+        @NonNull val zipCode : String,
+        @NonNull val stateName : String,
+        @NonNull val cityName : String,
+        @NonNull val streetName : String,
+        @NonNull val streetNumber : String
 )
