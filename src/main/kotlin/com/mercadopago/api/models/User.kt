@@ -28,16 +28,22 @@ class User() {
     lateinit var phone : String
         private set
 
+    @Column
+    lateinit var email : String
+        private set
+
     @OneToOne
     @JoinColumn
     lateinit var address: Address
         private set
 
-    constructor(firstName : String, lastName : String, ddd : String, phone : String, add: Address) : this() {
+    constructor(firstName : String, lastName : String, ddd : String, phone : String, add: Address, email: String) :
+            this() {
         this.firstName = firstName
         this.lastName = lastName
         this.ddd = ddd
         this.phone = phone
         this.address = add
+        this.email = email
     }
 }

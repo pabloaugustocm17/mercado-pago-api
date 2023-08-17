@@ -6,5 +6,6 @@ data class UserDTO(
         @NonNull val firstName : String,
         @NonNull val lastName : String,
         @NonNull val ddd : String,
-        @NonNull val phone : String
+        @NonNull val phone : String,
+        @NonNull val email : String
 )

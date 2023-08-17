@@ -13,7 +13,8 @@ class UserMapper {
                 dto.lastName,
                 dto.ddd,
                 dto.phone,
-                address
+                address,
+                dto.email
         )
 
     }
