@@ -109,7 +109,8 @@ Inserir usuário (POST) - `dominio/api/v1/user/`
     "firstName" : "Pablo",
     "lastName" : "Teste",
     "ddd" : "89",
-    "phone" : "112345678"
+    "phone" : "112345678",
+    "email" : "pablo@email.com"
   },
   "address" : {
     "zipCode" : "000045689",
@@ -121,7 +122,9 @@ Inserir usuário (POST) - `dominio/api/v1/user/`
 }
 ```
 
-Erros possíveis: [Retorno Sucesso](#output-inserido-genérico), [Falha (Usuário existente)](#output-erro-genérico)
+[Retorno Sucesso](#output-inserido-genérico)
+
+Erros possíveis: [Falha (Usuário existente)](#output-erro-genérico)
 
 ----
 
@@ -184,6 +187,6 @@ Erro possível: [Falha (Usuário não existe)](#output-erro-genérico)
 
 ```json
 {
-  "mensagem": "..."
+  "mensagem": "{objeto}, mensagem de erro (já existe ou não existe no sistema)"
 }
 ```
